@@ -40,7 +40,7 @@ namespace Bookstore.Infrastructure
                 tb.Attributes["href"] = uh.Action(PageAction, new { pageNum = i });
                 tb.InnerHtml.Append(i.ToString());
 
-                tb.InnerHtml.AppendHtml(tb);
+                final.InnerHtml.AppendHtml(tb);
             }
 
             tho.Content.AppendHtml(final.InnerHtml);

@@ -27,7 +27,7 @@ namespace Bookstore.Controllers
             {
                 Books = repo.Books
                 .OrderBy(b => b.Title)
-                .Skip(pageNum - 1 * pageSize)
+                .Skip((pageNum - 1) * pageSize)
                 .Take(pageSize),
 
                 PageInfo = new PageInfo
