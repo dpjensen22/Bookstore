@@ -2,10 +2,28 @@
 
 namespace Bookstore.Migrations
 {
-    public partial class AddPurchasationTable : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Books",
+                columns: table => new
+                {
+                    BookID = table.Column<long>(nullable: false),
+                    Title = table.Column<string>(nullable: false),
+                    Author = table.Column<string>(nullable: false),
+                    Publisher = table.Column<string>(nullable: false),
+                    ISBN = table.Column<string>(nullable: false),
+                    Classification = table.Column<string>(nullable: false),
+                    Category = table.Column<string>(nullable: false),
+                    PageCount = table.Column<long>(nullable: false),
+                    Price = table.Column<double>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Books", x => x.BookID);
+                });
 
             migrationBuilder.CreateTable(
                 name: "Purchasations",
@@ -21,6 +39,7 @@ namespace Bookstore.Migrations
                     State = table.Column<string>(nullable: false),
                     Zip = table.Column<string>(nullable: true),
                     Country = table.Column<string>(nullable: false),
+                    PurchasationReceived = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -44,7 +63,7 @@ namespace Bookstore.Migrations
                         name: "FK_BasketLineItem_Books_BookId",
                         column: x => x.BookId,
                         principalTable: "Books",
-                        principalColumn: "BookId",
+                        principalColumn: "BookID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_BasketLineItem_Purchasations_PurchasationId",
@@ -63,6 +82,12 @@ namespace Bookstore.Migrations
                 name: "IX_BasketLineItem_PurchasationId",
                 table: "BasketLineItem",
                 column: "PurchasationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Books_BookID",
+                table: "Books",
+                column: "BookID",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

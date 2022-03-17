@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bookstore.Migrations
 {
     [DbContext(typeof(BookstoreContext))]
-    [Migration("20220303061632_AddPurchasationTable")]
-    partial class AddPurchasationTable
+    [Migration("20220314203248_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -45,19 +45,24 @@ namespace Bookstore.Migrations
             modelBuilder.Entity("Bookstore.Models.Book", b =>
                 {
                     b.Property<long>("BookId")
-                        .ValueGeneratedOnAdd()
+                        .HasColumnName("BookID")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Author")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Category")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Classification")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Isbn")
+                        .IsRequired()
+                        .HasColumnName("ISBN")
                         .HasColumnType("TEXT");
 
                     b.Property<long>("PageCount")
@@ -67,12 +72,17 @@ namespace Bookstore.Migrations
                         .HasColumnType("REAL");
 
                     b.Property<string>("Publisher")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("BookId");
+
+                    b.HasIndex("BookId")
+                        .IsUnique();
 
                     b.ToTable("Books");
                 });
@@ -93,9 +103,6 @@ namespace Bookstore.Migrations
                     b.Property<string>("AddressLine3")
                         .HasColumnType("TEXT");
 
-                    b.Property<bool>("Anonymous")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("City")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -107,6 +114,9 @@ namespace Bookstore.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
+
+                    b.Property<bool>("PurchasationReceived")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("State")
                         .IsRequired()
